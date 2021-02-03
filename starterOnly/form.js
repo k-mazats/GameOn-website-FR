@@ -84,13 +84,11 @@ function checkboxValidation() {
 // removes previous alerts
 
 function removeAlerts() {
-    let alertBoxes = document.getElementsByClassName("form-alert");
+    let alertBoxes = document.querySelectorAll(".form-alert");
     if (alertBoxes.length > 0) {
-        // for (let alert in alertBoxes) {
-        //     alert.remove();
-        // }
-        for (let i = 0; i < alertBoxes.length; i++) {
-            alertBoxes[i].remove();
+        for (let alert of alertBoxes) {
+            alert.parentNode.removeChild(alert.nextSibling);
+            alert.parentNode.removeChild(alert);
         }
     }
 }
