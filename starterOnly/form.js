@@ -13,8 +13,7 @@ const errorMessages = {
 	lastName: "Veuillez entrer un nom comportant 2 caractères ou plus.",
 	firstName: "Veuillez entrer un prénom comportant 2 caractères ou plus.",
 	email: "Veuillez entrer une adresse email valide.",
-	birthdate:
-		"Veuillez entrer une date de naissance respectant le format JJ/MM/AAAA.",
+	birthdate: "Veuillez entrer une date de naissance.",
 	quantity: "Veuillez entrer un nombre valide.",
 	location: "Veuillez choisir une ville.",
 	checkbox: "Veuillez accepter les conditions d'utilisations.",
@@ -30,21 +29,36 @@ function isInvalid(element, message) {
 	} else {
 		target = element.parentNode;
 	}
-    target.setAttribute("data-error-visible", true);
-    target.setAttribute("data-error", message);
+	target.setAttribute("data-error-visible", true);
+	target.setAttribute("data-error", message);
 }
 
+//valid alert
+function isValid() {
+	form.style.display = "none";
+}
+
+//delete previous alerts
+function removeAlerts() {
+	let invalidFields = document.querySelectorAll(
+		'.formData[data-error-visible="true"]'
+	);
+	for (let field of invalidFields) {
+		field.setAttribute("data-error-visible", false);
+		field.setAttribute("data-error", "");
+	}
+}
 // first name
 function firstValidation() {
 	let inputValue = firstNameInput.value;
-	if (inputValue !== null && inputValue.length > 2) return true;
+	if (inputValue !== null && inputValue.length >= 2) return true;
 	else return false;
 }
 
 // last name
 function lastValidation() {
 	let inputValue = lastNameInput.value;
-	if (inputValue !== null && inputValue.length > 2) return true;
+	if (inputValue !== null && inputValue.length >= 2) return true;
 	else return false;
 }
 
@@ -82,36 +96,37 @@ function checkboxValidation() {
 // global form validation
 function validate(event) {
 	event.preventDefault();
-	let isValid = true;
+    let isValidInput = true;
+    removeAlerts();
 	if (!firstValidation()) {
-		isValid = false;
+		isValidInput = false;
 		isInvalid(firstNameInput, errorMessages.firstName);
 	}
 	if (!lastValidation()) {
-		isValid = false;
+		isValidInput = false;
 		isInvalid(lastNameInput, errorMessages.lastName);
 	}
 	if (!emailValidation()) {
-		isValid = false;
+		isValidInput = false;
 		isInvalid(emailInput, errorMessages.email);
 	}
 	if (!birthdateValidation()) {
-		isValid = false;
+		isValidInput = false;
 		isInvalid(birthdateInput, errorMessages.birthdate);
 	}
 	if (!quantityValidation()) {
-		isValid = false;
+		isValidInput = false;
 		isInvalid(quantityInput, errorMessages.quantity);
 	}
 	if (!locationValidation()) {
-		isValid = false;
+		isValidInput = false;
 		isInvalid(locationInput, errorMessages.location);
 	}
 	if (!checkboxValidation()) {
-		isValid = false;
+		isValidInput = false;
 		isInvalid(checkboxInput, errorMessages.checkbox);
 	}
-	if (isValid) {
-		form.submit();
+	if (isValidInput) {
+		isValid();
 	}
 }
