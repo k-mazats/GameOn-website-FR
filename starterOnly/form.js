@@ -1,5 +1,8 @@
 // DOM elements
-
+const modalForm = document.querySelector(".bground");
+const modalConfirm = document.querySelector(".confirm-modal");
+const modalConfirmBtn = document.querySelector(".confirm-modal-btn");
+const modalConfirmClose = document.querySelector(".confirm-close");
 const form = document.querySelector("form");
 const firstNameInput = document.getElementById("first");
 const lastNameInput = document.getElementById("last");
@@ -8,6 +11,7 @@ const birthdateInput = document.getElementById("birthdate");
 const quantityInput = document.getElementById("quantity");
 const locationInput = document.querySelectorAll(".checkbox-input[type=radio]");
 const checkboxInput = document.getElementById("checkbox1");
+const confirmModal = document.getElementById("confirm-modal");
 
 const errorMessages = {
 	lastName: "Veuillez entrer un nom comportant 2 caractères ou plus.",
@@ -24,18 +28,23 @@ const errorMessages = {
 //invalid alert
 function isInvalid(element, message) {
 	let target;
-	if (NodeList.prototype.isPrototypeOf(element)) {
-		target = element[0].parentNode;
-	} else {
-		target = element.parentNode;
-	}
+	if (NodeList.prototype.isPrototypeOf(element)) target = element[0].parentNode;
+	else target = element.parentNode;
 	target.setAttribute("data-error-visible", true);
 	target.setAttribute("data-error", message);
 }
 
 //valid alert
 function isValid() {
-	form.style.display = "none";
+	
+	// close modal confirm
+	function closeConfirmModal() {
+		modalConfirm.style.display = "none";
+	}
+	modalForm.style.display = "none";
+	modalConfirm.style.display = "flex";
+	modalConfirmBtn.addEventListener("click", closeConfirmModal);
+	modalConfirmClose.addEventListener("click", closeConfirmModal);
 }
 
 //delete previous alerts
@@ -96,8 +105,8 @@ function checkboxValidation() {
 // global form validation
 function validate(event) {
 	event.preventDefault();
-    let isValidInput = true;
-    removeAlerts();
+	let isValidInput = true;
+	removeAlerts();
 	if (!firstValidation()) {
 		isValidInput = false;
 		isInvalid(firstNameInput, errorMessages.firstName);
