@@ -36,15 +36,16 @@ function isInvalid(element, message) {
 
 //valid alert
 function isValid() {
-	
 	// close modal confirm
-	function closeConfirmModal() {
-		modalConfirm.style.display = "none";
-	}
+
 	modalForm.style.display = "none";
 	modalConfirm.style.display = "flex";
-	modalConfirmBtn.addEventListener("click", closeConfirmModal);
-	modalConfirmClose.addEventListener("click", closeConfirmModal);
+	modalConfirmBtn.addEventListener("click", () => {
+		modalConfirm.style.display = "none";
+	});
+	modalConfirmClose.addEventListener("click", () => {
+		modalConfirm.style.display = "none";
+	});
 }
 
 //delete previous alerts
