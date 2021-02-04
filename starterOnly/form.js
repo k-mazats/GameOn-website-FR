@@ -17,7 +17,7 @@ const errorMessages = {
 	lastName: "Veuillez entrer un nom comportant 2 caractères ou plus.",
 	firstName: "Veuillez entrer un prénom comportant 2 caractères ou plus.",
 	email: "Veuillez entrer une adresse email valide.",
-	birthdate: "Veuillez entrer une date de naissance.",
+	birthdate: "Veuillez entrer une date de naissance valide.",
 	quantity: "Veuillez entrer un nombre valide.",
 	location: "Veuillez choisir une ville.",
 	checkbox: "Veuillez accepter les conditions d'utilisations.",
@@ -79,8 +79,21 @@ function emailValidation() {
 
 //birthdate
 function birthdateValidation() {
-	let regex = /(\d{4})-(\d{2})-(\d{2})/;
-	return regex.test(birthdateInput.value);
+	let birthdate = new Date(birthdateInput.value);
+	let today = new Date();
+	if (birthdate.toString() !== "Invalid Date") {
+		if (
+			birthdate.getDate() == today.getDate() &&
+			birthdate.getMonth() == today.getMonth() &&
+			birthdate.getFullYear() == today.getFullYear()
+		) {
+			return false;
+		} else {
+			return true;
+		}
+	} else {
+		return false;
+	}
 }
 
 // quantity
