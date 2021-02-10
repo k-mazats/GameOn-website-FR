@@ -1,3 +1,7 @@
+//
+//	Variables
+//
+
 // DOM elements
 const modalForm = document.querySelector(".bground");
 const modalConfirm = document.querySelector(".confirm-modal");
@@ -13,6 +17,8 @@ const locationInput = document.querySelectorAll(".checkbox-input[type=radio]");
 const checkboxInput = document.getElementById("checkbox1");
 const confirmModal = document.getElementById("confirm-modal");
 
+// error messages
+
 const errorMessages = {
 	lastName: "Veuillez entrer un nom comportant 2 caractères ou plus.",
 	firstName: "Veuillez entrer un prénom comportant 2 caractères ou plus.",
@@ -23,7 +29,9 @@ const errorMessages = {
 	checkbox: "Veuillez accepter les conditions d'utilisations.",
 };
 
-//functions
+//
+// Functions
+//
 
 //invalid alert
 function isInvalid(element, message) {
@@ -36,8 +44,6 @@ function isInvalid(element, message) {
 
 //valid alert
 function isValid() {
-	// close modal confirm
-
 	modalForm.style.display = "none";
 	modalConfirm.style.display = "flex";
 	modalConfirmBtn.addEventListener("click", () => {
@@ -58,33 +64,34 @@ function removeAlerts() {
 		field.setAttribute("data-error", "");
 	}
 }
-// first name
+
+// check first name
 function firstValidation() {
 	let inputValue = firstNameInput.value;
 	if (inputValue !== null && inputValue.length >= 2) return true;
 	else return false;
 }
 
-// last name
+// check last name
 function lastValidation() {
 	let inputValue = lastNameInput.value;
 	if (inputValue !== null && inputValue.length >= 2) return true;
 	else return false;
 }
 
-//email
+//check if email use valid formatting
 function emailValidation() {
 	let regex = /^([a-z0-9_\.-]+\@[\da-z\.-]+\.[a-z\.]{2,6})$/;
 	return regex.test(emailInput.value);
 }
 
-//birthdate
+//check if birthdate is valid and older than today
 function birthdateValidation() {
 	let birthdate = new Date(birthdateInput.value);
 	let today = new Date();
 	if (birthdate.toString() !== "Invalid Date") {
 		if (
-			birthdate.getDate() == today.getDate() &&
+			birthdate.getDate() >= today.getDate() &&
 			birthdate.getMonth() == today.getMonth() &&
 			birthdate.getFullYear() == today.getFullYear()
 		) {
@@ -97,13 +104,13 @@ function birthdateValidation() {
 	}
 }
 
-// quantity
+// check if quantity is a valid number
 function quantityValidation() {
 	let regex = /^[0-9]+$/;
 	return regex.test(quantityInput.value);
 }
 
-// localisation
+// check if user chose a location
 function locationValidation() {
 	for (let radio of locationInput) {
 		if (radio.checked === true) return true;
@@ -111,7 +118,7 @@ function locationValidation() {
 	return false;
 }
 
-//checkbox
+//check if cgu are checked
 function checkboxValidation() {
 	return checkboxInput.checked;
 }
