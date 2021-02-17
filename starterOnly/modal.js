@@ -1,4 +1,6 @@
-
+//
+// Variables
+//
 
 // DOM Elements
 const modalbg = document.querySelector(".bground");
