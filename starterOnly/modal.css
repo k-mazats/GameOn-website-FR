@@ -36,7 +36,7 @@ img {
 }
 .header-logo {
 	float: left;
-	max-width: 1px;
+	
 }
 .main-navbar {
 	float: right;
@@ -92,6 +92,9 @@ img {
 		float: none;
 		display: block;
 		text-align: left;
+	}
+	.header-logo{
+		max-width: 1px;
 	}
 }
 
